@@ -1,0 +1,8 @@
+.vscode
+*
+!*.c
+!*.h
+!.gitignore
+*-main.c
+test.c
+binary_tree_print.c
