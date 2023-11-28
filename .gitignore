@@ -2,6 +2,8 @@
 !*.c
 !*.h
 !.gitignore
+!AUTHORS
+!README.md
 *-main.c
 test.c
 binary_tree_print.c
