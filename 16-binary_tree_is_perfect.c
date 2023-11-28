@@ -1,4 +1,5 @@
 #include "binary_trees.h"
+#include <stdio.h>
 
 /**
  * height_plus - helper function that returns the height + 1
@@ -61,9 +62,12 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 {
 	if (!tree)
 		return (0);
-	if (!binary_tree_balance(tree))
+	if (binary_tree_balance(tree) != 0)
+		return (0);
+	if (!tree->left && !tree->right)
 		return (1);
-	return (binary_tree_is_perfect(tree->left) *
-			binary_tree_is_perfect(tree->right) *
-			((tree->left && tree->right)));
+	if (!tree->left || !tree->right)
+		return (0);
+	return (binary_tree_is_perfect(tree->left) &&
+	binary_tree_is_perfect(tree->right));
 }
