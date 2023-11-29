@@ -46,10 +46,10 @@ int subtree_min(const binary_tree_t *tree)
 		min_value = (left < right) ? left : right;
 		min_value = (tree->n < min_value) ? tree->n : min_value;
 
-		return min_value;
+		return (min_value);
 	}
 
-	return INT_MAX;
+	return (INT_MAX);
 }
 
 /**
@@ -66,11 +66,11 @@ int is_bst_helper(const binary_tree_t *tree)
 	if (tree->right && subtree_min(tree->right) <= tree->n)
 		return (0);
 	if (!is_bst_helper(tree->left) || !is_bst_helper(tree->right))
-		return 0;
+		return (0);
 	return (1);
 }
 /**
- * int binary_tree_is_bst - checks if a BT is a valid BST
+ * binary_tree_is_bst - checks if a BT is a valid BST
  * @tree: pointer to the root node
  * Return: 1 if BST, 0 otherwise, 0 also for NULL root
  */
