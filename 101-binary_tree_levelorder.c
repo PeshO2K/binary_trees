@@ -74,7 +74,6 @@ void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 		level = 0;
 		while (level <= height)
 		{
-			/*printf("___Level: %ld___\n", level);*/
 			traverse_level(level, tree, func);
 			level++;
 		}
