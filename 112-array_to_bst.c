@@ -1,6 +1,20 @@
 #include "binary_trees.h"
 
 /**
+ * binary_tree_delete - deletes an entire binary tree
+ * @tree: pointer to the root node
+ */
+void binary_tree_delete(binary_tree_t *tree)
+{
+	if (tree)
+	{
+		binary_tree_delete(tree->left);
+		binary_tree_delete(tree->right);
+		free(tree);
+	}
+}
+
+/**
  * array_to_bst - builds a BST from an array
  * @array: pointer to first element of the array
  * @size: number of elements in the array
@@ -21,7 +35,10 @@ bst_t *array_to_bst(int *array, size_t size)
 		{
 			tmp = bst_insert(&root, array[i]);
 			if (!tmp)
+			{
+				binary_tree_delete((bst_t *)root);
 				return (NULL);
+			}
 			i++;
 		}
 		return (root);
