@@ -3,8 +3,10 @@
 /**
  * parent_side - connects child to grand parent for single child
  * @curr: pointer that is being deleted
+ * @root: pointer to the root of the tree
+ * Return: the updated root
  */
-void parent_side(bst_t *curr)
+bst_t *parent_side(bst_t *curr, bst_t *root)
 {
 	bst_t *only_child;
 
@@ -30,6 +32,9 @@ void parent_side(bst_t *curr)
 		curr->parent->right = NULL;
 	else if (curr->parent && curr->parent->left == curr)
 		curr->parent->left = NULL;
+	if (!curr->parent)
+		root = NULL;
+	return (root);
 }
 
 /**
@@ -133,13 +138,15 @@ bst_t *bst_remove(bst_t *root, int value)
 						curr->parent->right = NULL;
 					else if (curr->parent && curr->parent->left == curr)
 						curr->parent->left = NULL;
+					if (!curr->parent)
+						root = NULL;
 					free(curr);
 					break;
 				}
 				if ((!curr->left && curr->right) ||
 				 (curr->left && !curr->right))
 				{
-					parent_side(curr);
+					root = parent_side(curr, root);
 					free(curr);
 					break;
 				}
