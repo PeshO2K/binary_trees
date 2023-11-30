@@ -1,5 +1,4 @@
 #include "binary_trees.h"
-#include <stdio.h>
 /**
  * height_plus - helper function that returns the height + 1
  * @tree: root of the tree
@@ -51,7 +50,7 @@ void traverse_level(size_t level, const binary_tree_t *tree, void (*func)(int))
 		return;
 	if (level == 0)
 		func(tree->n);
-	else
+	else if (level > 0)
 	{
 		traverse_level(level - 1, tree->left, func);
 		traverse_level(level - 1, tree->right, func);
@@ -72,6 +71,7 @@ void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 	if (tree && func)
 	{
 		height = tree_height(tree);
+		level = 0;
 		while (level <= height)
 		{
 			/*printf("___Level: %ld___\n", level);*/
