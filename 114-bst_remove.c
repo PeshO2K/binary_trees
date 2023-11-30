@@ -25,6 +25,11 @@ void parent_side(bst_t *curr)
 		curr->parent->left = only_child;
 		only_child->parent = curr->parent;
 	}
+
+	if (curr->parent && curr->parent->right == curr)
+		curr->parent->right = NULL;
+	else if (curr->parent && curr->parent->left == curr)
+		curr->parent->left = NULL;
 }
 
 /**
@@ -80,10 +85,12 @@ bst_t *bst_search(const bst_t *tree, int value)
  * the node to delete has both left and right children
  * @cr: double pointer to the current node
  * @rpl: double pointer to the replacement node
+ * @rt: double pointer to the root node
+ * Return: the updated pointer to the root
  */
-void has_both_children(bst_t **cr, bst_t **rpl)
+bst_t *has_both_children(bst_t **cr, bst_t **rpl, bst_t **rt)
 {
-	bst_t *curr = *cr, *repl = *rpl;
+	bst_t *curr = *cr, *repl = *rpl, *root = *rt;
 
 	if (repl->parent->right == repl)
 		repl->parent->right = NULL;
@@ -94,6 +101,14 @@ void has_both_children(bst_t **cr, bst_t **rpl)
 	repl->right = curr->right;
 	curr->left->parent = repl;
 	curr->right->parent = repl;
+
+	if (curr == root)
+		root = repl;
+	else if (curr->parent->right == curr)
+		curr->parent->right = repl;
+	else
+		curr->parent->left = repl;
+	return (root);
 }
 
 /**
@@ -114,6 +129,10 @@ bst_t *bst_remove(bst_t *root, int value)
 			{
 				if (!curr->left && !curr->right)
 				{
+					if (curr->parent && curr->parent->right == curr)
+						curr->parent->right = NULL;
+					else if (curr->parent && curr->parent->left == curr)
+						curr->parent->left = NULL;
 					free(curr);
 					break;
 				}
@@ -127,14 +146,7 @@ bst_t *bst_remove(bst_t *root, int value)
 				if (curr->left && curr->right)
 				{
 					repl = bst_search(curr->right, subtree_min(curr->right));
-					has_both_children(&curr, &repl);
-					if (curr == root)
-						root = repl;
-					else if (curr->parent->right == curr)
-						curr->parent->right = repl;
-					else
-						curr->parent->left = repl;
-
+					root = has_both_children(&curr, &repl, &root);
 					free(curr);
 					break;
 				}
