@@ -4,6 +4,7 @@
 !.gitignore
 !AUTHORS
 !README.md
+!115-O
 *-main.c
 test.c
 binary_tree_print.c
