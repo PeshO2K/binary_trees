@@ -36,7 +36,7 @@ bst_t *array_to_bst(int *array, size_t size)
 			tmp = bst_insert(&root, array[i]);
 			if (!tmp)
 			{
-				binary_tree_delete((bst_t *)root);
+				binary_tree_delete((binary_tree_t *)root);
 				return (NULL);
 			}
 			i++;
