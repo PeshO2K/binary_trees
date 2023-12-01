@@ -83,14 +83,15 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 
 	if (tree)
 	{
-		if ((!tree->left && !tree->right) || (tree->left && !tree->right))
+		if ((!tree->left && !tree->right))
 			return (1);
-
 		balance = binary_tree_balance(tree);
 		if (balance < 0)
 			return (0);
 		else if (balance == 0)
 		{
+			if ((tree->left && !tree->right))
+				return (1);
 			if ((perfect_tree(tree->left) && binary_tree_is_complete(tree->right)))
 				return (1);
 		}
