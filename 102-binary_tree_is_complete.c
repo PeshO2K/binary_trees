@@ -97,8 +97,11 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 		}
 		else if (balance > 0)
 		{
-			if (binary_tree_is_complete(tree->left) && perfect_tree(tree->right))
+			if (binary_tree_is_complete(tree->left) && perfect_tree(tree->right) &&
+			balance == 1)
 				return (1);
+			else if (balance > 1)
+				return (0);
 		}
 	}
 	return (0);
